@@ -1,8 +1,8 @@
-# **Project Proposal: Examining the Impact of Sparta Prague Matches on Public Transport Delays in Letná District**
+# **Public Transport Delay Analysis for Event-Driven Scenarios**
 
 ## **Overview**
 
-This project aims to analyze the correlation between Sparta Prague football matches and public transport delays at specific stops in the Letná district. By combining match data, public transport delays, and other relevant data sources, we will develop a predictive algorithm to improve delay forecasting and provide actionable visualizations using tools like Matplotlib and Folium.
+This project analyzes how Sparta Prague football matches affect public transport delays in the Letná district of Prague. Using data from the Golemio API, including public transport delays, stop information, and match attendance, we aim to uncover patterns and correlations. Historical transport data stored in Parquet files will be processed with DuckDB for efficient analysis. A machine learning-based predictive model, incorporating techniques like Random Forest, regression, or Kalman Filter, will be developed to forecast delays. The findings will be visualized through charts and interactive maps, providing actionable insights to improve public transport operations during major events.
 
 ---
 
@@ -14,15 +14,16 @@ This project aims to analyze the correlation between Sparta Prague football matc
 2. Collect Sparta Prague match data:
    - **Data Points:** Match schedules, attendance, and timing.
 
-3. Retrieve data from the Golemio API to analyze public transport delays:
-   - **Available Endpoints:**
-     - `/v2/public/departureboards`
+3. Retrieve data to analyze public transport delays from:
+   - **Available API Endpoints:**
      - `/v2/public/stoptimes`
      - `/v2/public/stops`
      - `/v1/parkings`
      - `/v2/pedestrians/measurements`
      - `/v2/fcd/info`
-   - **Key Metrics:** Delays at selected stops during match days vs. non-match days.
+   - **Parquet Files** Stop times in history in parquet files, readable via DuckDB. Parquet file is provided by Golemio itself.
+
+**Key Metrics:** Delays at selected stops during match days vs. non-match days.
 
 4. Develop a predictive algorithm to model delays based on:
    - Match attendance, timing, and location.
@@ -31,7 +32,7 @@ This project aims to analyze the correlation between Sparta Prague football matc
 
 5. Visualize findings and insights:
    - **Tools:** Matplotlib for graphs and charts, Folium for geospatial visualizations.
-
+   - **Package:** The greater idea behind the model is to create a package that would than be able to analyze and predict delays regarding cultural event.
 ---
 
 ## **Proposed Technologies**
@@ -42,7 +43,7 @@ This project aims to analyze the correlation between Sparta Prague football matc
   - Official Sparta Prague match schedules and attendance reports.
 - (Optional) **Databases:**
   - based on the data size
-  - **DuckDB:** For lightweight, in-memory data analysis.
+  - **DuckDB:** For lightweight, in-memory data analysis, parquet reading.
 
 ### **Data Processing and Analysis**
 - **Python Libraries:**
@@ -55,7 +56,6 @@ This project aims to analyze the correlation between Sparta Prague football matc
 ### **Visualization**
 - **Matplotlib:** For time-series and delay analysis charts.
 - **Folium:** For interactive geospatial visualizations of delays at Letná stops.
-- **Plotly/Dash:** Optional for creating web-based interactive visualizations.
 
 ---
 
@@ -66,8 +66,8 @@ This project aims to analyze the correlation between Sparta Prague football matc
    - Retrieve delay and vehicle data for Letná district stops via the Golemio API.
    - Filter relevant endpoints such as:
      - `/v2/public/stops`
-     - `/v2/public/departureboards`
      - `/v2/public/stoptimes`
+     - parquet files by Golemio
 
 2. **Match Data:**
    - Collect match schedules, start times, and attendance numbers for Sparta Prague.
