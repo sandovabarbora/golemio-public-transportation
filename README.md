@@ -30,9 +30,16 @@ This project analyzes how Sparta Prague football matches affect public transport
    - Historical delay data at Letná district stops.
    - Model to predict delays.
 
-5. Visualize findings and insights:
-   - **Tools:** Matplotlib for graphs and charts, Folium for geospatial visualizations.
-   - **Package:** The greater idea behind the model is to create a package that would than be able to analyze and predict delays regarding cultural event.
+5. **Visualizing Findings and Insights**
+
+- **Tools**:
+  - **Matplotlib**: For graphs and charts, enabling time-series analysis and comparisons of delays on match days versus regular days.
+  - **Folium**: For geospatial visualizations, such as interactive maps to highlight delay intensity and identify hotspots at affected public transport stops.
+
+- **Package**:
+  - The greater idea behind the model is to create a reusable Python package. This package would analyze and predict public transport delays related to various cultural events, providing a scalable solution for event-driven transport optimization.
+
+
 ---
 
 ## **Proposed Technologies**
