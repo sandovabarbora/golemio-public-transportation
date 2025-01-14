@@ -39,7 +39,6 @@ This project analyzes how Sparta Prague football matches affect public transport
 - **Package**:
   - The greater idea behind the model is to create a reusable Python package. This package would analyze and predict public transport delays related to various cultural events, providing a scalable solution for event-driven transport optimization.
 
-
 ---
 
 ## **Proposed Technologies**
