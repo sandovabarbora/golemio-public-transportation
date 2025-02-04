@@ -1,169 +1,131 @@
-# Prague 7 Transit Analysis Dashboard
-## Overview
+# Public Transport Analysis Dashboard
 
-A comprehensive transit analysis tool for Prague 7, focusing on public transportation delays, event impacts, and predictive analytics. This application helps monitor and analyze transportation patterns around key areas like Letná, providing valuable insights for transit management and urban planning.
+## Project Overview
+This project provides a comprehensive analysis of public transport delays around the Letná area in Prague, with a specific focus on the impact of Sparta Praha football matches on public transportation. The dashboard offers real-time delay predictions, statistical analysis, and event impact assessment.
 
-## Features
-### 1. Delay Statistics
+## Use Case: Match Day Planning
+Imagine Aleš, a data analyst in Prague and an avid Sparta fan. It's a Friday afternoon in December, and he's trying to maximize his productive time at the office while ensuring he won't miss kickoff at the stadium. Like many fans, he faces a common dilemma:
 
-- Real-time delay monitoring
-- Interactive map visualization (Markers & Heatmap)
-- Hourly trend analysis
-- Date comparison tools
-- Basic transit statistics
+- When should he leave the office to arrive on time?
+- How will the usual Friday rush hour affect his journey?
+- What additional delays might the match day traffic cause?
 
-### 2. Event Impact Analysis
+Using our transit analysis dashboard, which he's relied on throughout the season, Aleš can:
+1. Check predicted delays specific to match days
+2. Compare current conditions with historical patterns
+3. Make an informed decision about his departure time
 
-- Sparta Praha match impact tracking
-- Cross-event analysis
-- Weather impact integration
-- Tourism pattern analysis
-- Construction zone impact assessment
+This real-world scenario exemplifies why we built this tool - to help people like Aleš make data-driven decisions about their journey to Letná stadium, taking into account all variables that might affect public transport reliability.
 
-### 3. Predictive Analytics
+## Key Features
+- Real-time delay predictions using historical data
+- Interactive visualization of transport delays
+- Event impact analysis for Sparta Praha matches
+- Automated data updates from Azure Blob Storage
+- Match schedule scraping from Eurofotbal.cz
 
-- Machine learning-based delay predictions
-- Travel advisory system
-- Multi-factor impact analysis
-- Confidence interval calculations
-- Real-time recommendations
 
-## Prerequisites
+## Technical Requirements
 
-- Python 3.8+
-- pip (Python package installer)
+### Python Version
+- Python 3.9+ (developed and tested with Python 3.9.7)
 
-## Installation
-
+### Installation
 1. Clone the repository:
 ```bash
-git clone https://github.com/sandovabarbora/golemio-public-transportation.git
-cd golemio-public-transportation
+git clone https://github.com/yourusername/public-transport-analysis.git
+cd public-transport-analysis
 ```
 
-2. Create a virtual environment (recommended):
+2. Create and activate a virtual environment:
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-3. Install required packages:
+3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Required Files
+4. Set up environment variables in a `.env` file:
+```env
+parquetAzureTenantID=your_tenant_id
+parquetAzureAppID=your_app_id
+parquetAzureClientSecret=your_client_secret
+parquetStorageName=your_storage_name
+X-Access-Token-Golemio=your_golemio_token
+```
 
-Place these files in your project root directory:
+### Project Structure
+```
+├── app.py                  # Main Streamlit application
+├── data/                   # Data directory
+│   ├── letna_stops.csv    # Static stops data
+│   └── sparta_matches.csv # Scraped match schedules
+├── src/
+│   ├── config.py          # Configuration and environment variables
+│   ├── connectors/        # Database connectors
+│   ├── data/              # Data processing modules
+│   ├── models/            # Analysis and prediction models
+│   ├── utils/             # Utility functions
+│   └── views/             # Dashboard view components
+├── tabs/                   # Tab components
+└── requirements.txt       # Project dependencies
+```
 
-- stop_times.csv - Transit stop timing data
-- letna_stops.csv - Letná area stop information
-- Match schedule CSV file (to be uploaded through the UI)
+## Code Design Principles
 
-## Running the Application
+### Pythonic Code
+- EAFP (Easier to Ask for Forgiveness than Permission) principle applied throughout:
+    - Type hints and docstrings for better code readability
+    - Modular design with clear separation of concerns
+    - Consistent naming conventions following PEP 8
 
-1. Start the Streamlit server:
+
+### Data Analysis Features
+1. **Delay Statistics**
+   - Basic statistics (average, maximum delays)
+   - Delay distribution visualization
+   - Hourly trends with rush hour overlays
+   - Interactive map view with delay heatmaps
+
+2. **Event Analysis**
+   - Match day vs. regular day comparison
+   - Individual match impact analysis
+   - Key findings and recommendations
+
+3. **Delay Predictions**
+   - Machine learning-based delay predictions
+   - Confidence intervals and reliability metrics
+   - Short-term and weekly forecasts
+
+## Running the Project
+1. Start the Streamlit application:
 ```bash
 streamlit run app.py
 ```
 
-2. Open your web browser and navigate to:
-```
-http://localhost:8501
-```
+2. Access the dashboard at `http://localhost:8501`
 
-## Project Structure
-
-```
-golemio-public-transportation/
-├── app.py                 # Main Streamlit application
-├── src/
-│   ├── event_analysis.py  # Event impact analysis
-│   ├── predictions.py     # ML predictions
-│   ├── data_processing.py # Data processing utilities
-│   └── imports.py         # API imports and utilities
-├── requirements.txt       # Python dependencies
-└── README.md             # This file
-```
-
-## Key Components
-
-### Data Processing (data_processing.py)
-- Stop information extraction
-- Data normalization
-- Coordinate processing
-
-### Event Analysis (event_analysis.py)
-- Match schedule processing
-- Impact calculations
-- Visualization tools
-- Statistical analysis
-
-### Predictions (predictions.py)
-- ML model implementation
-- Weather integration
-- Construction impact analysis
-- Tourism pattern processing
-
-### Main Application (app.py)
-- Streamlit UI implementation
-- Interactive visualizations
-- Real-time data processing
-- Map generation
-
-## Data Requirements
-
-### Stop Times CSV Format
-```csv
-current_stop_departure,current_stop_arrival,created_at,updated_at,gtfs_stop_id,current_stop_dep_delay
-2024-01-15 08:00:00,2024-01-15 07:59:00,2024-01-15 07:58:00,2024-01-15 07:58:00,12345S,60
-```
-
-### Letná Stops CSV Format
-```csv
-base_stop_id,stop_name,avg_latitude,avg_longitude
-12345,Letná,50.1234,14.4321
-```
-
-## Usage Tips
-
-### Data Upload:
-- Use the sidebar to upload event schedule files
-- Ensure CSV files are in the correct format
-
-### Map Navigation:
-- Use the map type selector for different visualizations
-- Click markers for detailed stop information
-- Adjust time ranges using the slider
-
-### Event Analysis:
-- Upload match schedules for event impact analysis
-- Compare different dates for pattern analysis
-- Review recommendations based on predictions
-
-### Predictions:
-- Check the travel advisor for immediate guidance
-- Review detailed predictions for longer-term planning
-- Consider all impact factors in the analysis
+3. Features available:
+   - View current delay statistics
+   - Analyze event impact
+   - Generate delay predictions
+   - Update data from Azure
+   - Scrape new match schedules
 
 ## Contributing
-
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Commit changes with meaningful messages
+4. Push to the branch
+5. Create a Pull Request
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+## Authors
+- Vojtěch Strachota
+- Barbora Šandová
 
 ## Acknowledgments
-
-- Prague Public Transit Authority for data support
-- Sparta Praha for match schedule information
-- Prague 7 Municipal Office for project support
-
-## Contact
-
-For questions and support, please contact me. Thank you!
+- Data provided by Golemio, Prague Data Platform
+- Match schedules from Eurofotbal.cz
