@@ -83,35 +83,244 @@ def display_overall_impact(data: pd.DataFrame, events_df: pd.DataFrame):
 
 def display_individual_matches(data: pd.DataFrame, events_df: pd.DataFrame):
     """
-    Render detailed analysis for an individual match.
-    Allows selection of a match date and displays metrics and charts around that match.
+    Render detailed analysis for an individual match with comprehensive visualizations.
+    Shows match details, delay comparisons, and temporal patterns around match time.
     """
-    historical_matches = events_df[events_df["datetime"].dt.date <= pd.Timestamp.now().date()].sort_values("datetime")
-    if historical_matches.empty:
-        st.info("No historical match data available for analysis")
-        return
+    st.subheader("Match Day Impact Analysis")
+    historical_matches = events_df[events_df['datetime'].dt.date <= pd.Timestamp.now().date()]
     
-    selected_date = st.selectbox(
-        "Select Match Date",
-        options=historical_matches["datetime"].dt.date,
-        format_func=lambda x: (
-            f"{x.strftime('%d.%m.%Y')} - {historical_matches[historical_matches['datetime'].dt.date == x]['Opponent'].iloc[0]} "
-            f"({'Home' if historical_matches[historical_matches['datetime'].dt.date == x]['is_home'].iloc[0] else 'Away'})"
+    if not historical_matches.empty:
+        historical_matches = historical_matches.sort_values('datetime')
+        selected_date = st.selectbox(
+            "Select Match Date",
+            options=historical_matches['datetime'].dt.date,
+            format_func=lambda x: (
+                f"{x.strftime('%d.%m.%Y')} - {historical_matches[historical_matches['datetime'].dt.date == x]['Opponent'].iloc[0]} "
+                f"({'Home' if historical_matches[historical_matches['datetime'].dt.date == x]['is_home'].iloc[0] else 'Away'})"
+            )
         )
-    )
-    if selected_date:
-        match_data = historical_matches[historical_matches["datetime"].dt.date == selected_date].iloc[0]
-        comparison_data = get_comparison_data(data, selected_date)
-        st.write("### Match Information")
-        col1, col2 = st.columns(2)
-        with col1:
-            st.write(f"🏟️ **Location:** {'Home match at Letná' if match_data['is_home'] else 'Away match'}")
-            st.write(f"👥 **Opponent:** {match_data['Opponent']}")
-        with col2:
-            st.write(f"📅 **Date:** {match_data['datetime'].strftime('%d.%m.%Y')}")
-            st.write(f"⏰ **Kickoff:** {match_data['datetime'].strftime('%H:%M')}")
-        # Further detailed charts and metrics for the individual match can be added here.
         
+        if selected_date:
+            match_data = historical_matches[historical_matches['datetime'].dt.date == selected_date].iloc[0]
+            comparison_data = get_comparison_data(data, selected_date)
+            
+            # Match info and key metrics
+            st.write("### Match Information")
+            col1, col2 = st.columns(2)
+            with col1:
+                st.write(f"🏟️ **Location:** {'Home match at Letná' if match_data['is_home'] else 'Away match'}")
+                st.write(f"👥 **Opponent:** {match_data['Opponent']}")
+            with col2:
+                st.write(f"📅 **Date:** {match_data['datetime'].strftime('%d.%m.%Y')}")
+                st.write(f"⏰ **Kickoff:** {match_data['datetime'].strftime('%H:%M')}")
+            
+            # Time Window Analysis
+            st.subheader("Delays Around Match Time")
+            
+            match_hour = match_data['datetime'].hour
+            time_windows = {
+                '3 hours before': (match_hour - 3, match_hour),
+                '2 hours before': (match_hour - 2, match_hour),
+                '1 hour before': (match_hour - 1, match_hour),
+                '1 hour after': (match_hour, match_hour + 1),
+                '2 hours after': (match_hour, match_hour + 2),
+                '3 hours after': (match_hour, match_hour + 3)
+            }
+            
+            window_stats = {}
+            for window_name, (start_hour, end_hour) in time_windows.items():
+                match_window = comparison_data['Match Day'][
+                    (comparison_data['Match Day']['current_stop_departure'].dt.hour >= start_hour) &
+                    (comparison_data['Match Day']['current_stop_departure'].dt.hour < end_hour)
+                ]
+                regular_window = comparison_data['Week Before'][
+                    (comparison_data['Week Before']['current_stop_departure'].dt.hour >= start_hour) &
+                    (comparison_data['Week Before']['current_stop_departure'].dt.hour < end_hour)
+                ]
+                
+                match_avg = match_window['current_stop_dep_delay'].mean()
+                regular_avg = regular_window['current_stop_dep_delay'].mean()
+                increase = ((match_avg / regular_avg) - 1) * 100 if regular_avg > 0 else 0
+                
+                window_stats[window_name] = {
+                    'match_avg': match_avg,
+                    'regular_avg': regular_avg,
+                    'increase': increase,
+                    'sample_size': len(match_window)
+                }
+            
+            # Display time window analysis
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.write("##### Before Match")
+                for window in ['3 hours before', '2 hours before', '1 hour before']:
+                    stats = window_stats[window]
+                    st.metric(
+                        window,
+                        f"{stats['match_avg']:.0f} sec",
+                        f"{stats['increase']:.1f}% vs normal",
+                        help=f"Based on {stats['sample_size']} measurements",
+                        delta_color="inverse"
+                    )
+            
+            with col2:
+                st.write("##### After Match")
+                for window in ['1 hour after', '2 hours after', '3 hours after']:
+                    stats = window_stats[window]
+                    st.metric(
+                        window,
+                        f"{stats['match_avg']:.0f} sec",
+                        f"{stats['increase']:.1f}% vs normal",
+                        help=f"Based on {stats['sample_size']} measurements",
+                        delta_color="inverse"
+                    )
+            
+            # Add a visual summary of the time windows
+            window_data = pd.DataFrame([
+                {
+                    'window': window,
+                    'delay': stats['match_avg'],
+                    'increase': stats['increase'],
+                    'is_before': 'Before' if 'before' in window else 'After'
+                }
+                for window, stats in window_stats.items()
+            ])
+            
+            window_chart = alt.Chart(window_data).mark_bar().encode(
+                x=alt.X('window:N', 
+                    sort=['3 hours before', '2 hours before', '1 hour before',
+                            '1 hour after', '2 hours after', '3 hours after'],
+                    title='Time Window'),
+                y=alt.Y('delay:Q', title='Average Delay (seconds)'),
+                color=alt.Color('is_before:N', 
+                            scale=alt.Scale(domain=['Before', 'After'],
+                                            range=['#5276A7', '#57A44C'])),
+                tooltip=[
+                    alt.Tooltip('window:N', title='Time Window'),
+                    alt.Tooltip('delay:Q', title='Average Delay', format='.1f'),
+                    alt.Tooltip('increase:Q', title='Increase vs Normal', format='.1f')
+                ]
+            ).properties(
+                width=700,
+                height=300,
+                title='Average Delays in Different Time Windows'
+            )
+            
+            st.altair_chart(window_chart)
+            st.caption(f"Analysis of delays before and after {match_data['datetime'].strftime('%H:%M')} kickoff")
+            
+            # Traffic Impact Summary
+            st.subheader("Overall Traffic Impact")
+            
+            # Calculate average delays
+            match_avg = comparison_data['Match Day']['current_stop_dep_delay'].mean()
+            regular_avg = comparison_data['Week Before']['current_stop_dep_delay'].mean()
+            delay_increase = ((match_avg / regular_avg) - 1) * 100 if regular_avg > 0 else 0
+            
+            # Simple metrics that matter for city management
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.metric(
+                    "Overall Delay Impact",
+                    f"{delay_increase:.1f}%",
+                    delta=f"{match_avg - regular_avg:.0f} sec" if delay_increase > 0 else "Normal traffic",
+                    delta_color="inverse"
+                )
+            
+            with col2:
+                # Calculate delays around match time (±2 hours)
+                match_hour = match_data['datetime'].hour
+                match_window = comparison_data['Match Day'][
+                    (comparison_data['Match Day']['current_stop_departure'].dt.hour >= match_hour - 2) &
+                    (comparison_data['Match Day']['current_stop_departure'].dt.hour <= match_hour + 2)
+                ]
+                match_time_avg = match_window['current_stop_dep_delay'].mean()
+                
+                st.metric(
+                    "Match Time Delays",
+                    f"{match_time_avg:.0f} sec",
+                    help="Average delays during ±2 hours around match time",
+                    delta_color="inverse"
+                )
+            
+            with col3:
+                # Most affected hour
+                hourly_delays = comparison_data['Match Day'].groupby(
+                    comparison_data['Match Day']['current_stop_departure'].dt.hour
+                )['current_stop_dep_delay'].mean()
+                worst_hour = hourly_delays.idxmax()
+                worst_delay = hourly_delays.max()
+                
+                st.metric(
+                    "Peak Impact Hour",
+                    f"{worst_hour:02d}:00",
+                    f"{worst_delay:.0f} sec average delay",
+                    delta_color='inverse'
+                )
+            
+            # Hourly delay visualization
+            st.subheader("Hourly Delay Pattern")
+            
+            # Prepare hourly data
+            hourly_data = []
+            for day_type, day_data in {'Match Day': comparison_data['Match Day'], 
+                                    'Regular Day': comparison_data['Week Before']}.items():
+                if not day_data.empty:
+                    hourly = day_data.groupby(
+                        day_data['current_stop_departure'].dt.hour
+                    )['current_stop_dep_delay'].mean().reset_index()
+                    hourly['day_type'] = day_type
+                    hourly_data.append(hourly)
+            
+            if hourly_data:
+                hourly_df = pd.concat(hourly_data)
+                
+                chart = alt.Chart(hourly_df).mark_line(point=True).encode(
+                    x=alt.X('current_stop_departure:Q', 
+                        title='Hour of Day',
+                        scale=alt.Scale(domain=[0, 23])),
+                    y=alt.Y('current_stop_dep_delay:Q', 
+                        title='Average Delay (seconds)'),
+                    color=alt.Color('day_type:N', 
+                                title='Day Type'),
+                    tooltip=['current_stop_departure:Q', 
+                            'current_stop_dep_delay:Q', 
+                            'day_type:N']
+                ).properties(
+                    width=700,
+                    height=400,
+                    title='Hourly Delay Comparison'
+                )
+                
+                # Add match time marker
+                match_line = alt.Chart(pd.DataFrame({'x': [match_hour]})).mark_rule(
+                    color='red',
+                    strokeDash=[4, 4]
+                ).encode(x='x:Q')
+                
+                st.altair_chart(chart + match_line)
+                st.caption("Red dashed line shows match start time")
+                
+                # Recommendations
+                st.subheader("Recommendations")
+                if match_avg > regular_avg * 1.2:  # 20% or more increase
+                    st.write("Based on the observed delays:")
+                    recommendations = [
+                        f"🚌 Consider additional public transport capacity {match_hour-1:02d}:00 - {match_hour+1:02d}:00",
+                        "🚥 Review traffic light timing during peak impact hours",
+                        "👮 Deploy additional traffic officers at key intersections"
+                    ]
+                    if match_data['is_home']:
+                        recommendations.append("🅿️ Consider temporary parking restrictions in residential areas")
+                    
+                    for rec in recommendations:
+                        st.write(rec)
+                else:
+                    st.write("✅ Current traffic management measures appear adequate for this type of match")
+    else:
+        st.info("No historical match data available for analysis")
+
 
 def display_event_analysis(data: pd.DataFrame, events_df: pd.DataFrame):
     """
