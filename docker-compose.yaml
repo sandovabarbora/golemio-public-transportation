@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  streamlit_app:
+    build: .
+    ports:
+      - "8501:8501"
+    volumes:
+      # Bind mount the host file (absolute or relative path) to the container.
+      - ./azure_data.duckdb:/app/azure_data.duckdb
+    environment:
+      - SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt

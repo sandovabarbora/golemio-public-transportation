@@ -40,7 +40,7 @@ def download_azure_data() -> None:
             max_date = existing_df["current_stop_departure"].max()
             max_date_str = (max_date.strftime("%Y-%m-%d %H:%M:%S")
                             if pd.notnull(max_date) else "1900-01-01 00:00:00")
-            new_df = azure_connector.get_stop_times_incremental(stop_ids, max_date_str)
+            new_df = azure_connector.update_incremental_data(stop_ids, max_date_str)
             if new_df.empty:
                 st.info("No new records found from Azure.")
             else:

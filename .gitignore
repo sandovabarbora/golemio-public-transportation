@@ -4,3 +4,4 @@ analyses/*.csv
 *.db
 *.duckdb
 *.pyc
+*.log

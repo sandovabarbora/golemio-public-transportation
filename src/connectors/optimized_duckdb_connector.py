@@ -4,13 +4,13 @@ Description: Provides the OptimizedDuckDBConnector class which sets up an optimi
              environment with precomputed columns, indexes, materialized views, and caching.
 """
 
+import os
 import duckdb
 import logging
 import pandas as pd
 from datetime import datetime, timedelta
 from functools import lru_cache
 from typing import Dict, Optional, List
-
 
 class OptimizedDuckDBConnector:
     """
@@ -23,11 +23,24 @@ class OptimizedDuckDBConnector:
 
         Parameters:
             db_path (str): Path to the DuckDB database.
+                            If a persistent database is used and the file does not exist,
+                            the schema will be initialized and saved.
         """
         self.db_path = db_path
+        persistent = (db_path != ":memory:")
+        file_exists = persistent and os.path.exists(db_path)
+
+        # Connect to DuckDB.
         self.conn = duckdb.connect(database=db_path, read_only=False)
         self._setup_logging()
-        self._initialize_schema()
+
+        if (not persistent) or (persistent and not file_exists):
+            self.logger.info("Database file not found (or using in-memory DB), initializing schema...")
+            self._initialize_schema()
+            if persistent:
+                self.conn.commit()  # Commit the schema initialization to disk.
+        else:
+            self.logger.info("Persistent DB file exists; skipping schema initialization.")
 
     def _setup_logging(self) -> None:
         """

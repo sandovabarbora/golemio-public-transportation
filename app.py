@@ -1,4 +1,3 @@
-# main.py
 import os
 import warnings
 import streamlit as st
@@ -14,7 +13,6 @@ from tabs.delay_predictions import render_delay_predictions
 
 warnings.filterwarnings("ignore")
 
-
 def load_events() -> pd.DataFrame:
     """
     Load events data from one of several sources:
@@ -24,11 +22,9 @@ def load_events() -> pd.DataFrame:
     Returns:
       pd.DataFrame or None: The events DataFrame or None if not available.
     """
-    # Check session state first
     if "events_df" in st.session_state:
         return st.session_state["events_df"]
 
-    # Check if a file was uploaded via the sidebar
     event_file = st.session_state.get("event_file", None)
     if event_file is not None:
         from src.views.event_analysis import load_event_data
@@ -36,7 +32,6 @@ def load_events() -> pd.DataFrame:
         st.session_state["events_df"] = events_df
         return events_df
 
-    # Fallback: check if the local file exists
     if os.path.exists("data/sparta_matches.csv"):
         events_df = pd.read_csv("data/sparta_matches.csv")
         events_df["Date"] = pd.to_datetime(events_df["Date"], format='%d.%m.%Y', errors='coerce')
@@ -54,14 +49,23 @@ def load_events() -> pd.DataFrame:
 
 def main():
     st.title("Public Transport Analysis Dashboard")
+
+    # Let the user choose whether to load a sample or full data.
+    sample_option = st.selectbox("Select data load mode", ["Load Sample Data", "Load Full Data"])
+    
+    if sample_option == "Load Sample Data":
+        st.info("Loading a sample of the newest data (this is faster)...")
+        data = load_stop_data(sample=True)
+    else:
+        st.info("Loading full data. This may take a while...")
+        data = load_stop_data(sample=False)
+
     event_file = render_sidebar()
     if event_file:
         st.session_state["event_file"] = event_file
 
-    with st.spinner("Loading Stop times data from Azure. If you are running the app for the first time, this might take a while."):
-        data = load_stop_data()
-
-    # Load event data from one of the available sources.
+    # At this point, `data` is already loaded based on the user's selection.
+    # Continue with the rest of the app.
     events_df = load_events()
     tabs = st.tabs(["Delay Statistics", "Event Analysis", "Delay Predictions"])
     
@@ -71,7 +75,7 @@ def main():
         if events_df is not None:
             render_event_analysis(data, events_df)
         else:
-            st.info("Please upload or scrape Sparta Praha match schedule CSV to see event analysis.")
+            st.info("Please upload or scrape Sparta match schedule CSV to see event analysis.")
     with tabs[2]:
         render_delay_predictions(data, events_df)
 
