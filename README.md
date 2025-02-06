@@ -8,7 +8,6 @@ A Streamlit-based dashboard for analyzing public transport delays and their rela
 - **Event Impact Assessment**: Analyze how sports events affect transport patterns
 - **Interactive Maps**: View delay patterns through markers or heatmaps
 - **Predictive Analytics**: Get short-term delay predictions with reliability scores
-- **Data Browser**: Explore historical transport and event data
 
 ## Quick Start 🚀
 
@@ -74,9 +73,9 @@ streamlit run app.py
 ## Data Sources 📂
 
 The dashboard integrates data from multiple sources:
-- Transport data from Azure Data Lake
-- Sports event schedules
-- Stop information and geography data
+- Transport data from Azure Data Lake - stop times parquet files filtered to Prague 7, provided by Golemio
+- Sports event schedules - scraping Sparta Prague matches from Eurofotbal.cz
+- Stop information and geography data - Golemio API
 
 ## Documentation 📚
 
@@ -116,13 +115,6 @@ Common issues and solutions:
 1. **Data loading fails**: Check Azure credentials and connection
 2. **Maps not displaying**: Verify internet connection and Folium installation
 3. **Prediction errors**: Ensure sufficient historical data is available
-
-## Contact 📧
-
-For questions and feedback:
-- Create an issue in the repository
-- Contact the development team at [email]
-- Join our community Discord
 
 ---
 Made with ❤️ by Barbora and Vojtěch
