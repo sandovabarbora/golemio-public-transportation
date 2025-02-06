@@ -3,10 +3,20 @@
 
 ## Getting Started
 
-### Accessing the Dashboard
-1. Open your web browser
-2. Navigate to the dashboard URL
-3. The dashboard will load with three main tabs: Delay Statistics, Event Analysis, and Delay Predictions
+### Installation Options
+
+#### Local Installation
+1. Clone the repository
+2. Create virtual environment
+3. Install dependencies
+4. Set up environment variables
+5. Run with `streamlit run app.py`
+
+#### Docker Installation
+1. Build Docker image
+2. Set environment variables
+3. Run container
+4. Access via localhost:8501
 
 ### Dashboard Layout
 - **Top**: Main title and navigation
@@ -15,6 +25,18 @@
 - **Bottom**: Additional information and updates
 
 ## Using the Dashboard
+
+### Resource-Aware Usage
+
+#### Optimal Performance
+1. Use date filters to limit data load
+2. Process data in smaller chunks
+3. Clear cache when switching views
+
+#### Memory Management
+- Close unused tabs
+- Regular cache clearing
+- Limit concurrent operations
 
 ### Delay Statistics Tab
 
@@ -36,156 +58,131 @@
    - Specific days of week
 
 #### Viewing Statistics
-- Hover over markers to see detailed information
-- Use the charts below the map to view trends
-- Check summary statistics in the metrics cards
+- Hover over markers for details
+- Use charts for trends
+- Check summary statistics
 
 ### Event Analysis Tab
 
 #### Analyzing Event Impact
-1. Select an event date from the dropdown
-2. View before/after comparisons
-3. Check impact zones on the map
+1. Select event date
+2. View comparisons
+3. Check impact zones
 
 #### Understanding Reports
-- **Impact Summary**: Overview of event effects
-- **Time Analysis**: Delays during different periods
-- **Recommendations**: Suggested actions
+- **Impact Summary**: Overview
+- **Time Analysis**: Delay periods
+- **Recommendations**: Actions
 
 #### Comparative Analysis
-1. Use "Compare with Regular Day" option
-2. Select comparison date
-3. View side-by-side statistics
+1. Use comparison option
+2. Select baseline date
+3. View statistics
 
 ### Delay Predictions Tab
 
 #### Getting Predictions
-1. Select a stop from the dropdown
-2. Choose direction if applicable
-3. View predicted delays
+1. Select stop
+2. Choose direction
+3. View predictions
 
 #### Reading Predictions
-- **Bold line**: Predicted delays
-- **Shaded area**: Confidence interval
-- **Reliability score**: Prediction confidence
+- **Bold line**: Prediction
+- **Shaded area**: Confidence
+- **Score**: Reliability
 
-#### Using Filters
-- Time range selection
-- Stop selection
-- Direction filters
+## Data Management
 
-## Data Updates
+### Efficient Data Loading
+1. Use incremental loading
+2. Apply necessary filters
+3. Clear unused data
 
-### Refreshing Data
-1. Click "Download New Data" in sidebar
-2. Wait for confirmation message
-3. Dashboard will update automatically
+### Data Updates
+1. Schedule during off-peak
+2. Monitor memory usage
+3. Verify successful update
 
-### Uploading Event Data
-1. Click "Upload Match Schedule" in sidebar
-2. Select your CSV file
-3. Confirm successful upload
-
-## Tips and Tricks
-
-### Map Navigation
-- **Zoom**: Scroll wheel or buttons
-- **Pan**: Click and drag
-- **Reset**: Double click
+## Performance Tips
 
 ### Optimization
-- Use date filters to improve performance
-- Export data for offline analysis
-- Save custom views for quick access
+- Filter data appropriately
+- Clear cache regularly
+- Monitor resource usage
 
 ### Common Tasks
 
-#### Finding Specific Stops
-1. Use the search function in the sidebar
-2. Filter by route or direction
-3. Click on map markers for details
+#### Efficient Stop Search
+1. Use search function
+2. Apply relevant filters
+3. Access stop details
 
-#### Analyzing Time Periods
-1. Set hour range in sidebar
-2. Compare different time periods
-3. Look for patterns in the data
+#### Time Analysis
+1. Set focused ranges
+2. Compare specific periods
+3. Identify patterns
 
-#### Exporting Data
-1. Click export button on charts
-2. Choose format (CSV, PNG)
-3. Save to your computer
+#### Data Export
+1. Export in chunks
+2. Choose efficient format
+3. Manage file sizes
 
 ## Best Practices
 
 ### For Analysis
-- Start with broader time ranges
-- Gradually narrow down to specific periods
-- Compare similar days/events
+- Use focused time ranges
+- Process data incrementally
+- Compare similar periods
 
 ### For Performance
-- Clear filters when not needed
-- Update data during off-peak hours
-- Use specific date ranges
+- Monitor resource usage
+- Clear cache regularly
+- Use efficient filters
 
 ## Troubleshooting
 
 ### Common Issues
 
-#### Map Not Loading
-- Check your internet connection
-- Try refreshing the page
-- Clear browser cache
+#### Memory Issues
+- Reduce data range
+- Clear application cache
+- Restart application
 
-#### Data Not Updating
-- Verify connection to data sources
-- Check for error messages
-- Try manual refresh
+#### Performance Issues
+- Check resource usage
+- Optimize query range
+- Monitor system resources
 
-#### Slow Performance
-- Reduce date range
-- Close unused browser tabs
-- Clear browser cache
+#### Data Loading Issues
+- Verify connection
+- Check credentials
+- Monitor logs
 
 ### Getting Help
-- Check error messages
-- Refer to documentation
-- Contact support team
+- Check error logs
+- Review documentation
+- Contact support
 
-## Keyboard Shortcuts
+## Technical Reference
 
-- **F**: Toggle fullscreen
-- **R**: Refresh data
-- **C**: Remove cached data
-- **Esc**: Close popups
+### System Requirements
+- Minimum 8GB RAM
+- Modern web browser
+- Network connection
 
-## Additional Resources
+### Performance Monitoring
+- Resource usage
+- Memory consumption
+- Processing time
 
-### Related Documentation
-- can be found in /docs folder
-- Technical documentation
-- Streamlit Technical documentation
-- Deployment guide
+## Security
 
+### Data Protection
+- Encrypted storage
+- Access logging
+- Privacy controls
 
-## Updates and Maintenance
-### Regular Updates
-- Data updates: Daily
-- Event updates: Weekly
-- System maintenance: Monthly
-
-### Version Information
-- Check version number in footer
-- Review changelog for updates
-- Monitor for new features
-
-## Security Notes
-
-### Data Privacy
-- Data is encrypted
-- Access is logged
-- Personal information is protected
-
-### Access Control
-- Use authorized credentials
-- Log out after sessions
-- Don't share access
+### Access Management
+- Authentication
+- Authorization
+- Session control
