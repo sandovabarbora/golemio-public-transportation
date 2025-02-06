@@ -166,25 +166,5 @@ Common issues and solutions:
    - Adjust cache settings
    - Optimize query patterns
 
-### 8. Resources
 
-- GitHub Repository: https://github.com/sandovabarbora/golemio-public-transportation
-- Documentation: See /docs folder in repository
-- Issue Tracking: GitHub Issues
 
-### 9. Security Notes
-
-1. Environment Variables:
-   - Never commit .env file
-   - Use secrets management in production
-   - Rotate credentials regularly
-
-2. Data Protection:
-   - Enable encryption at rest
-   - Implement access controls
-   - Follow security best practices
-
-3. Container Security:
-   - Keep base images updated
-   - Scan for vulnerabilities
-   - Follow least privilege principle
