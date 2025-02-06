@@ -1,0 +1,64 @@
+Home Team,Away Team,Opponent,is_home,Competition,Round,Date,Time,Score,Location,datetime
+Sparta Praha,FK Pardubice,FK Pardubice,True,Chance Liga,1. kolo,19.07.2024,19:00,2:1,D,19.07.2024 19:00
+Shamrock Rovers,Sparta Praha,Shamrock Rovers,False,Liga mistrů,2.př 1.z,23.07.2024,21:00,0:2,V,23.07.2024 21:00
+FK Teplice,Sparta Praha,FK Teplice,False,Chance Liga,2. kolo,27.07.2024,17:00,1:4,V,27.07.2024 17:00
+Sparta Praha,Shamrock Rovers,Shamrock Rovers,True,Liga mistrů,2.př 2.z,30.07.2024,19:00,4:2,D,30.07.2024 19:00
+Sparta Praha,Dukla Praha,Dukla Praha,True,Chance Liga,3. kolo,02.08.2024,20:00,2:0,D,02.08.2024 20:00
+Sparta Praha,FCSB,FCSB,True,Liga mistrů,3.př 1.z,06.08.2024,20:00,1:1,D,06.08.2024 20:00
+Bohemians 1905,Sparta Praha,Bohemians 1905,False,Chance Liga,4. kolo,10.08.2024,17:00,1:2,V,10.08.2024 17:00
+FCSB,Sparta Praha,FCSB,False,Liga mistrů,3.př 2.z,13.08.2024,20:30,2:3,V,13.08.2024 20:30
+FK Jablonec,Sparta Praha,FK Jablonec,False,Chance Liga,5. kolo,17.08.2024,20:00,1:2,V,17.08.2024 20:00
+Malmö FF,Sparta Praha,Malmö FF,False,Liga mistrů,4.př 1.z,21.08.2024,21:00,0:2,V,21.08.2024 21:00
+Sparta Praha,1. FC Slovácko,1. FC Slovácko,True,Chance Liga,6. kolo,24.08.2024,17:00,2:2,D,24.08.2024 17:00
+Sparta Praha,Malmö FF,Malmö FF,True,Liga mistrů,4.př 2.z,27.08.2024,21:00,2:0,D,27.08.2024 21:00
+Hradec Král.,Sparta Praha,Hradec Král.,False,Chance Liga,7. kolo,31.08.2024,20:00,0:2,V,31.08.2024 20:00
+Sparta Praha,Salzburg,Salzburg,True,Liga mistrů,Hl.f,18.09.2024,18:45,3:0,D,18.09.2024 18:45
+Č. Budějovice,Sparta Praha,Č. Budějovice,False,Chance Liga,9. kolo,22.09.2024,15:30,0:2,V,22.09.2024 15:30
+Sparta Praha,Sigma Olomouc,Sigma Olomouc,True,Chance Liga,10. kolo,27.09.2024,19:30,2:3,D,27.09.2024 19:30
+VfB Stuttgart,Sparta Praha,VfB Stuttgart,False,Liga mistrů,Hl.f,01.10.2024,18:45,1:1,V,01.10.2024 18:45
+Slavia Praha,Sparta Praha,Slavia Praha,False,Chance Liga,11. kolo,06.10.2024,18:30,2:1,V,06.10.2024 18:30
+Sparta Praha,Slovan Liberec,Slovan Liberec,True,Chance Liga,12. kolo,19.10.2024,19:00,2:1,D,19.10.2024 19:00
+Manchester City,Sparta Praha,Manchester City,False,Liga mistrů,Hl.f,23.10.2024,21:00,5:0,V,23.10.2024 21:00
+Viktoria Plzeň,Sparta Praha,Viktoria Plzeň,False,Chance Liga,13. kolo,27.10.2024,18:30,1:0,V,27.10.2024 18:30
+Sparta Praha,Zbrojovka Brno,Zbrojovka Brno,True,MOL Cup,3.k,30.10.2024,19:15,4:0,D,30.10.2024 19:15
+Sparta Praha,Baník Ostrava,Baník Ostrava,True,Chance Liga,14. kolo,02.11.2024,19:00,1:3,D,02.11.2024 19:00
+Sparta Praha,Stade Brestois,Stade Brestois,True,Liga mistrů,Hl.f,06.11.2024,21:00,1:2,D,06.11.2024 21:00
+Ml. Boleslav,Sparta Praha,Ml. Boleslav,False,Chance Liga,15. kolo,10.11.2024,15:30,2:2,V,10.11.2024 15:30
+Sparta Praha,FK Teplice,FK Teplice,True,Chance Liga,16. kolo,23.11.2024,16:00,1:1,D,23.11.2024 16:00
+Sparta Praha,Atl. Madrid,Atl. Madrid,True,Liga mistrů,Hl.f,26.11.2024,18:45,0:6,D,26.11.2024 18:45
+Dukla Praha,Sparta Praha,Dukla Praha,False,Chance Liga,17. kolo,30.11.2024,19:00,1:1,V,30.11.2024 19:00
+Sparta Praha,MFK Karviná,MFK Karviná,True,Chance Liga,8. kolo,03.12.2024,19:00,4:1,D,03.12.2024 19:00
+Sparta Praha,Bohemians 1905,Bohemians 1905,True,Chance Liga,18. kolo,07.12.2024,19:00,1:0,D,07.12.2024 19:00
+Feyenoord,Sparta Praha,Feyenoord,False,Liga mistrů,Hl.f,11.12.2024,21:00,4:2,V,11.12.2024 21:00
+Sparta Praha,FK Jablonec,FK Jablonec,True,Chance Liga,19. kolo,15.12.2024,13:00,2:1,D,15.12.2024 13:00
+Sparta Praha,Inter Milán,Inter Milán,True,Liga mistrů,Hl.f,22.01.2025,21:00,0:1,D,22.01.2025 21:00
+Leverkusen,Sparta Praha,Leverkusen,False,Liga mistrů,Hl.f,29.01.2025,21:00,2:0,V,29.01.2025 21:00
+1. FC Slovácko,Sparta Praha,1. FC Slovácko,False,Chance Liga,20. kolo,02.02.2025,13:00,0:2,V,02.02.2025 13:00
+Sparta Praha,Hradec Král.,Hradec Král.,True,Chance Liga,21. kolo,09.02.2025,18:30,- : -,D,09.02.2025 18:30
+MFK Karviná,Sparta Praha,MFK Karviná,False,Chance Liga,22. kolo,15.02.2025,19:00,- : -,V,15.02.2025 19:00
+Sparta Praha,Č. Budějovice,Č. Budějovice,True,Chance Liga,23. kolo,22.02.2025,19:00,- : -,D,22.02.2025 19:00
+Sparta Praha,Dukla Praha,Dukla Praha,True,MOL Cup,OF,25.02.2025,18:00,- : -,D,25.02.2025 18:00
+Sigma Olomouc,Sparta Praha,Sigma Olomouc,False,Chance Liga,24. kolo,01.03.2025,16:00,- : -,V,01.03.2025 16:00
+Sparta Praha,Slavia Praha,Slavia Praha,True,Chance Liga,25. kolo,08.03.2025,?,- : -,D,08.03.2025 ?
+Slovan Liberec,Sparta Praha,Slovan Liberec,False,Chance Liga,26. kolo,15.03.2025,?,- : -,V,15.03.2025 ?
+Sparta Praha,Viktoria Plzeň,Viktoria Plzeň,True,Chance Liga,27. kolo,29.03.2025,?,- : -,D,29.03.2025 ?
+Baník Ostrava,Sparta Praha,Baník Ostrava,False,Chance Liga,28. kolo,05.04.2025,?,- : -,V,05.04.2025 ?
+Sparta Praha,Ml. Boleslav,Ml. Boleslav,True,Chance Liga,29. kolo,12.04.2025,?,- : -,D,12.04.2025 ?
+FK Pardubice,Sparta Praha,FK Pardubice,False,Chance Liga,30. kolo,19.04.2025,?,- : -,V,19.04.2025 ?
+Slovácko,Sparta Praha,Slovácko,False,,,,,0:2,V, 
+Sparta Praha,Hradec Kr.,Hradec Kr.,True,,,,,- : -,D, 
+,,Unknown,,,,,,- : -,Neutral, 
+,,Unknown,,,,,,- : -,Neutral, 
+,,Unknown,,,,,,- : -,Neutral, 
+,,Unknown,,,,,,- : -,Neutral, 
+,,Unknown,,,,,,- : -,Neutral, 
+,,Unknown,,,,,,- : -,Neutral, 
+Sparta Praha,Brno,Brno,True,,,,,4:0,D, 
+Sparta Praha,Dukla Praha,Dukla Praha,True,,,,,- : -,D, 
+Leverkusen,Sparta Praha,Leverkusen,False,,,,,2:0,V, 
+,,Unknown,,,,,,- : -,Neutral, 
+,,Unknown,,,,,,- : -,Neutral, 
+,,Unknown,,,,,,- : -,Neutral, 
+,,Unknown,,,,,,- : -,Neutral, 
+,,Unknown,,,,,,- : -,Neutral, 
+,,Unknown,,,,,,- : -,Neutral, 

@@ -82,6 +82,4 @@ def render_sidebar() -> Optional[pd.DataFrame]:
         st.header("Event Data")
         if st.button("Scrape Latest Sparta Matches"):
             scrape_event_data()
-            
-        event_file = st.file_uploader("Upload Sparta Praha Match Schedule", type=['csv'])
-        return event_file
+

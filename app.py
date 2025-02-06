@@ -58,7 +58,8 @@ def main():
     if event_file:
         st.session_state["event_file"] = event_file
 
-    data = load_stop_data()
+    with st.spinner("Loading Stop times data from Azure. If you are running the app for the first time, this might take a while."):
+        data = load_stop_data()
 
     # Load event data from one of the available sources.
     events_df = load_events()

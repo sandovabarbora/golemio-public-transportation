@@ -1,4 +1,5 @@
-*.csv
+latest_stop_times.csv
+analyses/*.csv
 *.env
 *.db
 *.duckdb
