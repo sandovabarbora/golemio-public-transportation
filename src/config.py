@@ -1,7 +1,12 @@
-import streamlit as st
+# src/config_local.py
+import os
+from dotenv import load_dotenv
 
-AZURE_TENANT_ID = st.secrets["AZURE_TENANT_ID"]
-AZURE_APP_ID = st.secrets["AZURE_APP_ID"] 
-AZURE_CLIENT_SECRET = st.secrets["AZURE_CLIENT_SECRET"]
-AZURE_STORAGE_NAME = st.secrets["AZURE_STORAGE_NAME"]
-GOLEMIO_TOKEN = st.secrets["GOLEMIO_TOKEN"]
+load_dotenv()
+
+AZURE_TENANT_ID = os.getenv("parquetAzureTenantID")
+AZURE_APP_ID = os.getenv("parquetAzureAppID")
+AZURE_CLIENT_SECRET = os.getenv("parquetAzureClientSecret")
+AZURE_STORAGE_NAME = os.getenv("parquetStorageName")
+GOLEMIO_TOKEN = os.getenv("X-Access-Token-Golemio")
+

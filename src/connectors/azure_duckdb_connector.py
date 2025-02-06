@@ -8,22 +8,7 @@ Description: Provides the AzureDuckDBConnector class which connects DuckDB to Az
 import duckdb
 import logging
 import pandas as pd
-import urllib3
-import os
-import certifi
-
-# Disable urllib3 warnings (for self-signed or other non-standard cert issues)
-urllib3.disable_warnings()
-
-# Ensure SSL_CERT_FILE is set before any network connections are made.
-os.environ['SSL_CERT_FILE'] = certifi.where()
-
-# Import Azure credentials and other configuration values from your config module.
 from src.config import AZURE_TENANT_ID, AZURE_APP_ID, AZURE_CLIENT_SECRET, AZURE_STORAGE_NAME
-
-# Optionally, if you want to use ClientSecretCredential for testing/debugging:
-from azure.identity import ClientSecretCredential
-
 
 class AzureDuckDBConnector:
     """
@@ -49,8 +34,6 @@ class AzureDuckDBConnector:
         Handles the case where the external database is already attached and prevents secret re-creation.
         """
         logging.info("Setting up Azure via DuckDB...")
-
-        # Attach an external database if necessary.
         try:
             self.conn.sql("ATTACH 'public-transport.db';")
         except Exception as e:
@@ -59,29 +42,11 @@ class AzureDuckDBConnector:
             else:
                 raise
 
-        # Install and load the Azure extension.
+        # Install and load Azure extension
         self.conn.sql("INSTALL azure;")
         self.conn.sql("LOAD azure;")
 
-        # Optional: Acquire a token using ClientSecretCredential to verify connectivity.
-        # This step is not required for DuckDB's integration but can help you debug SSL or credential issues.
-        try:
-            with ClientSecretCredential(
-                tenant_id=AZURE_TENANT_ID,
-                client_id=AZURE_APP_ID,
-                client_secret=AZURE_CLIENT_SECRET
-            ) as credential:
-                # Acquire a token for Azure Storage (the default scope is "https://storage.azure.com/.default")
-                token = credential.get_token("https://storage.azure.com/.default")
-                logging.info("Successfully acquired token via ClientSecretCredential.")
-                # You could log part of the token or its expiry if needed:
-                logging.debug(f"Token expires at: {token.expires_on}")
-        except Exception as ex:
-            logging.error("Error acquiring token using ClientSecretCredential: %s", ex)
-            # Depending on your use case, you might want to raise or handle the error here.
-            raise
-
-        # Create the Azure secret for DuckDB. DuckDB will use this secret for authentication.
+        # Try to create the secret and handle the error if it already exists.
         secret_sql = f"""
             CREATE SECRET azure_spn (
                 TYPE AZURE,
@@ -96,6 +61,7 @@ class AzureDuckDBConnector:
             self.conn.sql(secret_sql)
             logging.info("Azure secret created successfully.")
         except duckdb.duckdb.Error as e:
+            # If the secret already exists, log the message and skip the creation.
             if "already exists" in str(e):
                 logging.info("Azure secret already exists; skipping creation.")
             else:
