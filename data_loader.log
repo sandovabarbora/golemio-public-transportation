@@ -1,0 +1,14 @@
+2025-02-06 16:24:47,610 - INFO - Starting data loading process
+2025-02-06 16:24:47,610 - INFO - Loading stops data from CSV
+2025-02-06 16:24:47,613 - INFO - Processing stop IDs
+2025-02-06 16:24:47,613 - INFO - Found 44 unique stop IDs
+2025-02-06 16:24:47,614 - INFO - Loading data from Azure via DuckDB
+2025-02-06 16:24:47,617 - INFO - DuckDB connected with db_path: azure_data.duckdb
+2025-02-06 16:24:47,618 - INFO - Setting up Azure via DuckDB...
+2025-02-06 16:24:47,653 - INFO - Azure secret created successfully.
+2025-02-06 16:24:47,653 - INFO - Querying full data for stop IDs: 'U100S1','U100Z101P','U100Z102P','U100Z1P','U100Z2P','U100Z3P','U100Z4P','U100Z5P','U100Z6P','U163S1','U163Z101P','U163Z102P','U163Z10P','U163Z1P','U163Z2P','U163Z5P','U163Z6P','U163Z9P','U187Z1P','U187Z2P','U231Z1P','U231Z2P','U262Z2P','U262Z3P','U262Z4P','U324Z1P','U324Z2P','U439Z1P','U532Z1P','U532Z2P','U532Z3P','U532Z4P','U532Z53P','U692Z1P','U692Z2P','U692Z3P','U692Z4P','U717Z1P','U717Z2P','U717Z4P','U717Z5P','U841Z1P','U841Z2P','U841Z4P'
+2025-02-06 16:31:42,910 - INFO - Retrieved 4568899 stop times records from Azure
+2025-02-06 16:31:42,916 - INFO - Loaded 4568899 records from Azure
+2025-02-06 16:31:42,916 - INFO - Processing retrieved data
+2025-02-06 16:31:47,223 - INFO - Merging with stops data
+2025-02-06 16:31:49,287 - INFO - Final merged dataset has 4568899 records

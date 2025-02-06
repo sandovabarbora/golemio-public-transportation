@@ -21,7 +21,7 @@ class SegmentPredictor:
         self.events_df = events_df
 
     def _process_segments(self, data: pd.DataFrame) -> pd.DataFrame:
-        from src.models.segment_processor import create_segments_df, process_trip_data_duckdb
+        from src.data.segment_processor import create_segments_df, process_trip_data_duckdb
         
         segments_df = create_segments_df(data)
         processed_data = process_trip_data_duckdb(data)

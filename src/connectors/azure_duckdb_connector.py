@@ -9,6 +9,14 @@ import duckdb
 import logging
 import pandas as pd
 from src.config import AZURE_TENANT_ID, AZURE_APP_ID, AZURE_CLIENT_SECRET, AZURE_STORAGE_NAME
+import urllib3
+urllib3.disable_warnings()
+import os
+
+import certifi
+
+# Add this before your Azure connection code
+os.environ['SSL_CERT_FILE'] = certifi.where()
 
 class AzureDuckDBConnector:
     """
